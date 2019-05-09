@@ -2,16 +2,28 @@
 #include <string.h>
 #include <stdlib.h> //Для printf, fgets, fopen, fclose, feof
 
-int main (void)
+long int filesize( FILE *mf )
+{
+  long int save_pos, size_of_file;
+ 
+  save_pos = ftell( mf );
+  fseek( mf, 0L, SEEK_END );
+  size_of_file = ftell( mf );
+  fseek( mf, save_pos, SEEK_SET );
+  return( size_of_file );
+}
+
+int main ()
 {  
    // Переменная, в которую будет помещен указатель на созданный
    // поток данных 
-   FILE *mf;
+   FILE *mf = fopen ("tekst.txt","r");
    FILE *s = fopen("test.txt", "w");
    // Переменная, в которую поочередно будут помещаться считываемые строки
    //char str[50000];
-   char String[30000];
-   int Words[15000];
+   int k = filesize(mf) + 1;
+   char String[k];
+   int Words[k];
    int Number;
    int i, j, Temp;
    int Flag; //Признак окончания слова.
@@ -23,7 +35,6 @@ int main (void)
    // Открытие файла с режимом доступа «только чтение» и привязка к нему 
    // потока данных
    printf ("Открытие файла: ");
-   mf = fopen ("tekst.txt","r");
 
    // Проверка открытия файла
    if (mf == NULL) {printf ("ошибка\n"); return -1;}
