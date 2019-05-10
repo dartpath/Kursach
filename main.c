@@ -23,6 +23,28 @@ char *readfile(FILE *mf)
 	return String;
 }
 
+int proc_word(char *String, int Words[])
+{
+	int Flag, i, Number;
+	
+	for (Number = 0,Flag = 1,i = 0; String[i]; i ++)
+   {
+
+    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-' || String[i] == '\n')
+    {
+      String[i] = 0;
+      Flag = 1;
+    }
+
+    else if (Flag)
+    {
+      Words[Number ++] = i;
+      Flag = 0;
+    }
+  }
+  return Number;
+}
+
 int main (int argc, char *argv[])
 {  
    // Переменная, в которую будет помещен указатель на созданный
@@ -34,9 +56,9 @@ int main (int argc, char *argv[])
    int k = filesize(mf) + 1;
    char *String = readfile(mf);
    int Words[k];
-   int Number;
+   int Number = proc_word(String, Words);
    int i, j, Temp;
-   int Flag; //Признак окончания слова.
+
 
    // Открытие файла с режимом доступа «только чтение» и привязка к нему 
    // потока данных
@@ -45,24 +67,7 @@ int main (int argc, char *argv[])
    // Проверка открытия файла
    if (mf == NULL) {printf ("ошибка\n"); return -1;}
    else printf ("выполнено\n");
-
-   /* Предварительная обработка */
-  for (Number = 0, Flag = 1, i = 0; String[i]; i ++)
-  {
-     /*Все пробелы заменяем на символ конца строки */
-    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-' || String[i] == '\n')
-    {
-      String[i] = 0;
-      Flag = 1;
-    }
-    /* Позиции первых после пробелов символов записываем в массив */
-    else if (Flag)
-    {
-      Words[Number ++] = i;
-      Flag = 0;
-    }
-  }
-
+   
   /* Сортировка */
   for (j = Number - 1; j > 0; j --){
       for (i = 0; i < j; i ++){
