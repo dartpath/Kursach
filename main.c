@@ -23,14 +23,14 @@ char *readfile(FILE *mf)
 	return String;
 }
 
-int proc_word(char *String, int Words[])
+int procword(char *String, int Words[])
 {
 	int Flag, i, Number;
 	
 	for (Number = 0,Flag = 1,i = 0; String[i]; i ++)
    {
 
-    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-' || String[i] == '\n')
+    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-' || String[i] == '\n' || String[i] == '!' || String[i] == '?')
     {
       String[i] = 0;
       Flag = 1;
@@ -45,31 +45,10 @@ int proc_word(char *String, int Words[])
   return Number;
 }
 
-int main (int argc, char *argv[])
-{  
-   // Переменная, в которую будет помещен указатель на созданный
-   // поток данных 
-   FILE *mf = fopen (argv[2],"r");
-   FILE *s = fopen(argv[1], "w");
-   // Переменная, в которую поочередно будут помещаться считываемые строки
-   //char str[50000];
-   int k = filesize(mf) + 1;
-   char *String = readfile(mf);
-   int Words[k];
-   int Number = proc_word(String, Words);
-   int i, j, Temp;
-
-
-   // Открытие файла с режимом доступа «только чтение» и привязка к нему 
-   // потока данных
-   printf ("Открытие файла: ");
-
-   // Проверка открытия файла
-   if (mf == NULL) {printf ("ошибка\n"); return -1;}
-   else printf ("выполнено\n");
-   
-  /* Сортировка */
-  for (j = Number - 1; j > 0; j --){
+void sorttext(FILE *mf, char *String, int Words[], int Number)
+{
+	int i, j, Temp;
+	for (j = Number - 1; j > 0; j --){
       for (i = 0; i < j; i ++){
          if (strcmp(&String[Words[i]], &String[Words[i + 1]]) > 0)
          {
@@ -90,10 +69,37 @@ int main (int argc, char *argv[])
           }
         }
       }
-    } 
+   }
+	  return;
+}
+
+int main (int argc, char *argv[])
+{  
+   // Переменная, в которую будет помещен указатель на созданный
+   // поток данных 
+   FILE *mf = fopen (argv[2],"r");
+   FILE *s = fopen(argv[1], "w");
+   // Переменная, в которую поочередно будут помещаться считываемые строки
+   //char str[50000];
+   int k = filesize(mf) + 1;
+   char *String = readfile(mf);
+   int Words[k];
+   int Number = procword(String, Words);
+
+   // Открытие файла с режимом доступа «только чтение» и привязка к нему 
+   // потока данных
+   printf ("Открытие файла: ");
+
+   // Проверка открытия файла
+   if (mf == NULL) {printf ("ошибка\n"); return -1;}
+   else printf ("выполнено\n");
+   
+   sorttext(mf, String, Words, Number);
+   
+     
 	//fwrite(String, sizeof(char), k, s);
       /* Вывод результата */
-      for (i = 0; i < Number; i++){
+      for (int i = 0; i < Number; i++){
      //   // fprintf(s, "%s\n", &String[Words[i]]);
 		     fprintf(s, "%s\n", &String[Words[i]]);
       }  /* End of 'main' function */  
