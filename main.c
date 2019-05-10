@@ -49,7 +49,7 @@ int main ()
   for (Number = 0, Flag = 1, i = 0; String[i]; i ++)
   {
      /*Все пробелы заменяем на символ конца строки */
-    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-')
+    if (String[i] == ' ' || String[i] == ':' || String[i] == '.' || String[i] == ',' || String[i] == '-' || String[i] == '\n')
     {
       String[i] = 0;
       Flag = 1;
@@ -95,7 +95,7 @@ int main ()
       }  /* End of 'main' function */  
 
    // Закрываем файл
-   printf ("Закрытие файла: ");
+   printf ("\nЗакрытие файла: ");
    if ( fclose (mf) == EOF) printf ("ошибка\n");
    else printf ("выполнено\n");
    
