@@ -13,12 +13,12 @@ long int filesize( FILE *mf )
   return( size_of_file );
 }
 
-int main ()
+int main (int argc, char *argv[])
 {  
    // Переменная, в которую будет помещен указатель на созданный
    // поток данных 
-   FILE *mf = fopen ("tekst.txt","r");
-   FILE *s = fopen("test.txt", "w");
+   FILE *mf = fopen (argv[2],"r");
+   FILE *s = fopen(argv[1], "w");
    // Переменная, в которую поочередно будут помещаться считываемые строки
    //char str[50000];
    int k = filesize(mf) + 1;
@@ -27,11 +27,6 @@ int main ()
    int Number;
    int i, j, Temp;
    int Flag; //Признак окончания слова.
-
-   //Указатель, в который будет помещен адрес массива, в который считана 
-   // строка, или NULL если достигнут коней файла или произошла ошибка
-   char *estr;
-   char String_2[k];
 
    // Открытие файла с режимом доступа «только чтение» и привязка к нему 
    // потока данных
