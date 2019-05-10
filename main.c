@@ -13,6 +13,16 @@ long int filesize( FILE *mf )
   return( size_of_file );
 }
 
+char *readfile(FILE *mf)
+{
+	char *String = malloc((filesize(mf) + 1) * sizeof(char));
+
+    fread(String, sizeof(char), (filesize(mf) + 1), mf);  
+    printf ("Считаны строки:\n %s", String); 
+	
+	return String;
+}
+
 int main (int argc, char *argv[])
 {  
    // Переменная, в которую будет помещен указатель на созданный
@@ -22,7 +32,7 @@ int main (int argc, char *argv[])
    // Переменная, в которую поочередно будут помещаться считываемые строки
    //char str[50000];
    int k = filesize(mf) + 1;
-   char String[k];
+   char *String = readfile(mf);
    int Words[k];
    int Number;
    int i, j, Temp;
@@ -36,10 +46,6 @@ int main (int argc, char *argv[])
    if (mf == NULL) {printf ("ошибка\n"); return -1;}
    else printf ("выполнено\n");
 
-   fread(String, sizeof(char), k, mf);  
-   printf ("Считаны строки:\n %s", String); 
-   
-   
    /* Предварительная обработка */
   for (Number = 0, Flag = 1, i = 0; String[i]; i ++)
   {
@@ -56,8 +62,6 @@ int main (int argc, char *argv[])
       Flag = 0;
     }
   }
-  
-
 
   /* Сортировка */
   for (j = Number - 1; j > 0; j --){
