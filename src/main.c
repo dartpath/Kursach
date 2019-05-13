@@ -1,44 +1,46 @@
 #include "text.h"
 
-int main (int argc, char *argv[])
-{  
-   // Переменная, в которую будет помещен указатель на созданный
-   // поток данных 
-   FILE *rfile = fopen (argv[2],"r");
-   FILE *wfile = fopen(argv[1], "w");
-   
-   // Открытие файла с режимом доступа «только чтение» и привязка к нему 
-   // потока данных
-   printf ("Открытие файла: ");
+int main(int argc, char* argv[])
+{
+    FILE* rfile = fopen(argv[2], "r");
 
-   // Проверка открытия файла
-   if (rfile == NULL) {printf ("ошибка\n"); return -1;}
-   else printf ("выполнено\n");
-   
-   // Переменная, в которую поочередно будут помещаться считываемые строки
-   //char str[50000];
-   int k = filesize(rfile) + 1;
-   char *String = readfile(rfile);
-   int Words[k];
-   int Number = procword(String, Words);
+    printf("Открытие файла для чтения: ");
+    if (rfile == NULL) {
+        printf("ошибка\n");
+        return -1;
+    } else
+        printf("выполнено\n");
 
+    char* String = readfile(rfile);
 
-   
-   sorttext(rfile, String, Words, Number);
-   
-      /* Вывод результата */
-      for (int i = 0; i < Number; i++){
-		     fprintf(wfile, "%s\n", &String[Words[i]]);
-      }
+    printf("\nЗакрытие файла для чтения: ");
+    if (fclose(rfile) == EOF)
+        printf("ошибка\n");
+    else
+        printf("выполнено\n");
 
-   // Закрываем файл
-   printf ("\nЗакрытие файла: ");
-   if ( fclose (rfile) == EOF) printf ("ошибка\n");
-   else printf ("выполнено\n");
-   
-   printf ("Закрытие файла: ");
-   if ( fclose (wfile) == EOF) printf ("ошибка\n");
-   else printf ("выполнено\n");
+    FILE* wfile = fopen(argv[1], "w");
 
-   return 0;
-} 
+    printf("Открытие файла для записи: ");
+    if (wfile == NULL) {
+        printf("ошибка\n");
+        return -1;
+    } else
+        printf("выполнено\n");
+
+    int Words[filesize(rfile) + 1];
+    int Number = procword(String, Words);
+    sorttext(rfile, String, Words, Number);
+
+    for (int i = 0; i < Number; i++) {
+        fprintf(wfile, "%s\n", &String[Words[i]]);
+    }
+
+    printf("Закрытие файла для записи: ");
+    if (fclose(wfile) == EOF)
+        printf("ошибка\n");
+    else
+        printf("выполнено\n");
+
+    return 0;
+}
