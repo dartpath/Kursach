@@ -16,7 +16,7 @@ char* readfile(FILE* mf)
     char* String = malloc((filesize(mf) + 1) * sizeof(char));
 
     fread(String, sizeof(char), (filesize(mf) + 1), mf);
-    printf("Считаны строки:\n %s", String);
+    printf("Считаны строки:\n%s", String);
 
     return String;
 }
@@ -28,7 +28,9 @@ int procword(char* String, int Words[])
     for (Number = 0, Flag = 1, i = 0; String[i]; i++) {
         if (String[i] == ' ' || String[i] == ':' || String[i] == '.'
             || String[i] == ',' || String[i] == '-' || String[i] == '\n'
-            || String[i] == '!' || String[i] == '?') {
+            || String[i] == '!' || String[i] == '?' || String[i] == ';'
+            || String[i] == '"' || String[i] == '(' || String[i] == ')'
+            || String[i] == '"') {
             String[i] = 0;
             Flag = 1;
         }
