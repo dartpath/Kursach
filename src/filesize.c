@@ -1,7 +1,5 @@
-#include "alphsort.h"
 #include "filesize.h"
-#include "readfile.h"
-#include "removepunct.h"
+#include <stdio.h>
 
 long int filesize(FILE* mf)
 {
