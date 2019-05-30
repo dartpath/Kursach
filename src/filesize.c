@@ -1,7 +1,7 @@
-#include "text.h"
+#include "alphsort.h"
 #include "filesize.h"
 #include "readfile.h"
-#include "procword.h"
+#include "removepunct.h"
 
 long int filesize(FILE* mf)
 {

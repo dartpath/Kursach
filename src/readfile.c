@@ -1,15 +1,14 @@
-#include "text.h"
+#include "alphsort.h"
 #include "filesize.h"
 #include "readfile.h"
-#include "procword.h"
 
-char* readfile(FILE* mf)
+char *Reading_text_from_file(FILE *Origin_file)
 {
-    char* String = malloc((filesize(mf) + 1) * sizeof(char));
+    char *Text = malloc((filesize(Origin_file) + 1) * sizeof(char));
 
-    fread(String, sizeof(char), (filesize(mf) + 1), mf);
-    printf("Считаны строки:%s\n", String);
+    fread(Text, sizeof(char), (filesize(Origin_file) + 1), Origin_file);
+    printf("Считаны строки:%s\n", Text);
     printf("\n");
 
-    return String;
+    return Text;
 }

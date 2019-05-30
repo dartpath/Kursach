@@ -1,6 +1,6 @@
 #ifndef READFILE_H
 #define READFILE_H
 
-char *readfile(FILE *mf);
+char *Reading_text_from_file(FILE *Origin_file);
 
 #endif
