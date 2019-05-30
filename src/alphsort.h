@@ -1,6 +1,9 @@
 #ifndef ALPHSORT_H
 #define ALPHSORT_H
 
+#include <stdio.h>
+#include <string.h>
+
 void Sorting_text_alphabetically(
         FILE* Origin_file,
         char* Clean_text,

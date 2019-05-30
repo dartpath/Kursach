@@ -1,7 +1,5 @@
 #include "readfile.h"
 #include "filesize.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 char* Reading_text_from_file(FILE* Origin_file)
 {

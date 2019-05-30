@@ -1,5 +1,4 @@
 #include "filesize.h"
-#include <stdio.h>
 
 long int filesize(FILE* mf)
 {

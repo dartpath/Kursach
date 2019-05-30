@@ -1,5 +1,4 @@
 #define CTEST_MAIN
-
 #include "../src/alphsort.h"
 #include "../src/filesize.h"
 #include "../src/readfile.h"

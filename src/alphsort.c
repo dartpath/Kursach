@@ -1,6 +1,4 @@
 #include "alphsort.h"
-#include <stdio.h>
-#include <string.h>
 
 void Sorting_text_alphabetically(
         FILE* Origin_file,
