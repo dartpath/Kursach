@@ -1,4 +1,4 @@
-.PHONY : clean build bin main test
+.PHONY : clean bin main test
 
 CC := gcc
 CFLAGS := -Wall -Werror
@@ -27,7 +27,7 @@ $(BUILD_SRC)/readfile.o: src/readfile.c src/readfile.h
 $(BUILD_SRC)/removepunct.o: src/removepunct.c src/removepunct.h
 		$(CC) -std=c99 $(CFLAGS) -o $(BUILD_SRC)/removepunct.o -c src/removepunct.c	
 
-alphabet: $(TEST)
+test: $(TEST)
 
 $(TEST): $(BUILD_TEST)/main.o $(BUILD_TEST)/alphsort.o $(BUILD_TEST)/filesize.o $(BUILD_TEST)/readfile.o $(BUILD_TEST)/removepunct.o
 		$(CC) $(CFLAGS) $(BUILD_TEST)/main.o $(BUILD_TEST)/alphsort.o $(BUILD_TEST)/filesize.o $(BUILD_TEST)/readfile.o $(BUILD_TEST)/removepunct.o	-o $(TEST)
@@ -49,11 +49,9 @@ $(BUILD_TEST)/removepunct.o: src/removepunct.c src/removepunct.h
 
 bin:
 	mkdir bin
-
+	
 build:
-	mkdir build
-	mkdir build/src
-	mkdir build/test
+	mkdir
 
 clean:
 	rm -rf build/src/*.o

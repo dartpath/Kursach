@@ -2,6 +2,7 @@
 #include "filesize.h"
 #include "readfile.h"
 #include "removepunct.h"
+#include <stdio.h>
 
 int main(int argc, char* argv[])
 {

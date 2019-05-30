@@ -31,5 +31,4 @@ void Sorting_text_alphabetically(
             }
         }
     }
-    return;
 }
