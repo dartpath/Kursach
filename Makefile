@@ -1,4 +1,4 @@
-.PHONY : clean bin main test
+.PHONY : clean bin all test
 
 CC := gcc
 CFLAGS := -Wall -Werror
@@ -7,7 +7,7 @@ BUILD_TEST := ./build/test
 MAIN := ./bin/alphabet
 TEST := ./bin/test
 
-main: $(MAIN)
+all: $(MAIN)
 
 $(MAIN): $(BUILD_SRC)/main.o $(BUILD_SRC)/alphsort.o $(BUILD_SRC)/filesize.o $(BUILD_SRC)/readfile.o $(BUILD_SRC)/removepunct.o
 		$(CC) $(BUILD_SRC)/main.o $(BUILD_SRC)/alphsort.o $(BUILD_SRC)/filesize.o  $(BUILD_SRC)/readfile.o $(BUILD_SRC)/removepunct.o -o $(MAIN)
@@ -33,25 +33,28 @@ $(TEST): $(BUILD_TEST)/main.o $(BUILD_TEST)/alphsort.o $(BUILD_TEST)/filesize.o 
 		$(CC) $(CFLAGS) $(BUILD_TEST)/main.o $(BUILD_TEST)/alphsort.o $(BUILD_TEST)/filesize.o $(BUILD_TEST)/readfile.o $(BUILD_TEST)/removepunct.o	-o $(TEST)
 
 $(BUILD_TEST)/main.o: test/main.c build
-		$(CC) $(CFLAGS) -c test/main.c -o $(BUILD_TEST)/main.o
+		$(CC) $(CFLAGS) -c -I thirdparty -I src test/main.c -o $(BUILD_TEST)/main.o
 
 $(BUILD_TEST)/alphsort.o: src/alphsort.c src/alphsort.h
-		$(CC) $(CFLAGS) -c src/alphsort.c -o $(BUILD_TEST)/alphsort.o
+		$(CC) $(CFLAGS) -c -I thirdparty -I src src/alphsort.c -o $(BUILD_TEST)/alphsort.o
 
 $(BUILD_TEST)/filesize.o: src/filesize.c src/filesize.h
-		$(CC) $(CFLAGS) -c src/filesize.c -o $(BUILD_TEST)/filesize.o
+		$(CC) $(CFLAGS) -c -I thirdparty -I src src/filesize.c -o $(BUILD_TEST)/filesize.o
 
 $(BUILD_TEST)/readfile.o: src/readfile.c src/readfile.h
-		$(CC) $(CFLAGS) -c src/readfile.c -o $(BUILD_TEST)/readfile.o
+		$(CC) $(CFLAGS) -c -I thirdparty -I src src/readfile.c -o $(BUILD_TEST)/readfile.o
 
 $(BUILD_TEST)/removepunct.o: src/removepunct.c src/removepunct.h
-		$(CC) $(CFLAGS) -c src/removepunct.c -o $(BUILD_TEST)/removepunct.o
+		$(CC) $(CFLAGS) -c -I thirdparty -I src src/removepunct.c -o $(BUILD_TEST)/removepunct.o
 
 bin:
 	mkdir bin
 	
 build:
 	mkdir
+
+check_test: $(TEST)
+	$(TEST)
 
 clean:
 	rm -rf build/src/*.o
