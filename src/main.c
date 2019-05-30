@@ -1,4 +1,7 @@
 #include "text.h"
+#include "filesize.h"
+#include "readfile.h"
+#include "procword.h"
 
 int main(int argc, char* argv[])
 {

@@ -1,47 +1,7 @@
 #include "text.h"
-
-long int filesize(FILE* mf)
-{
-    long int save_pos, size_of_file;
-
-    save_pos = ftell(mf);
-    fseek(mf, 0L, SEEK_END);
-    size_of_file = ftell(mf);
-    fseek(mf, save_pos, SEEK_SET);
-    return size_of_file;
-}
-
-char* readfile(FILE* mf)
-{
-    char* String = malloc((filesize(mf) + 1) * sizeof(char));
-
-    fread(String, sizeof(char), (filesize(mf) + 1), mf);
-    printf("Считаны строки:\n%s", String);
-
-    return String;
-}
-
-int procword(char* String, int Words[])
-{
-    int Flag, i, Number;
-
-    for (Number = 0, Flag = 1, i = 0; String[i]; i++) {
-        if (String[i] == ' ' || String[i] == ':' || String[i] == '.'
-            || String[i] == ',' || String[i] == '-' || String[i] == '\n'
-            || String[i] == '!' || String[i] == '?' || String[i] == ';'
-            || String[i] == '"' || String[i] == '(' || String[i] == ')'
-            || String[i] == '"') {
-            String[i] = 0;
-            Flag = 1;
-        }
-
-        else if (Flag) {
-            Words[Number++] = i;
-            Flag = 0;
-        }
-    }
-    return Number;
-}
+#include "filesize.h"
+#include "readfile.h"
+#include "procword.h"
 
 void sorttext(FILE* mf, char* String, int Words[], int Number)
 {
