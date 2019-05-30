@@ -1,4 +1,4 @@
-main: bin/main
+main: bin/alphabet
 
 build/main.o: src/main.c 
 		gcc -std=c99 -Wall -Werror -o build/main.o -c src/main.c
@@ -15,8 +15,8 @@ build/readfile.o: src/readfile.c
 build/removepunct.o: src/removepunct.c
 		gcc -std=c99 -Wall -Werror -o build/removepunct.o -c src/removepunct.c		
 
-bin/main: build/main.o build/alphsort.o build/filesize.o build/readfile.o build/removepunct.o
-		gcc build/main.o build/alphsort.o build/filesize.o  build/readfile.o build/removepunct.o -o bin/main
+bin/alphabet: build/main.o build/alphsort.o build/filesize.o build/readfile.o build/removepunct.o
+		gcc build/main.o build/alphsort.o build/filesize.o  build/readfile.o build/removepunct.o -o bin/alphabet
 
 .PHONY : clean
 
